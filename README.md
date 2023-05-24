@@ -4,8 +4,6 @@ ProbabilityRandom 是一個用於根據區間及機率隨機生成數字的 PHP 
 
 ## **安裝**
 
----
-
 可以使用 Composer 來安裝 ProbabilityRandom。請在你的專案目錄中運行以下命令：
 
 ```
@@ -13,8 +11,6 @@ composer require jerry58321/probability-random
 ```
 
 ## **用法**
-
----
 
 ### **初始化**
 
@@ -86,7 +82,5 @@ $randomNumber = $probabilityRandom->random();
 詳細的方法使用方式可以參考程式碼中的註釋。
 
 ## **單元測試**
-
----
 
 本包已提供了一些單元測試範例，你可以在 **`ProbabilityRandomTest.php`** 檔案中找到這些測試案例。
