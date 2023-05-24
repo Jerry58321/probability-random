@@ -117,18 +117,18 @@ class ProbabilityRandomTest extends TestCase
     }
 
     /**
-     * 測試取得實際區間金額是否正確
+     * 測試取得實際區間數值是否正確
      *
-     * @dataProvider getProportionsWithExpectRangeAmount
+     * @dataProvider getProportionsWithExpectRangeValue
      * @return void
      */
-    public function testGetActualRangeAmountIsCorrect(array $proportions, array $expectRangeAmount)
+    public function testGetActualRangeValueIsCorrect(array $proportions, array $expectRangeValue)
     {
         $result = ProbabilityRandom::build(1, 1000)
             ->setRangeProportions($proportions)
-            ->getActualRangeAmount();
+            ->getActualRangeValue();
 
-        $this->assertEquals($result, $expectRangeAmount);
+        $this->assertEquals($result, $expectRangeValue);
     }
 
     /**
@@ -256,7 +256,7 @@ class ProbabilityRandomTest extends TestCase
     /**
      * @return array[]
      */
-    public function getProportionsWithExpectRangeAmount(): array
+    public function getProportionsWithExpectRangeValue(): array
     {
         return [
             [

@@ -107,7 +107,7 @@ class ProbabilityRandom
     {
         $this->checkRangeSettingLegal();
         $this->checkProbabilitiesSettingLegal();
-        $actualRangeAmount = $this->getActualRangeAmount();
+        $actualRangeValue = $this->getActualRangeValue();
 
         // 不在安全範圍內則不使用機率控制
         if ($this->useSafeRange && !$this->isSafeRange()) {
@@ -120,29 +120,29 @@ class ProbabilityRandom
         }
 
         $probabilityRangeIndex = $this->getProbabilityRangeIndex();
-        return random_int(...$actualRangeAmount[$probabilityRangeIndex]);
+        return random_int(...$actualRangeValue[$probabilityRangeIndex]);
     }
 
     /**
-     * 取得實際區間金額
+     * 取得實際區間數值
      *
      * @return array
      */
-    public function getActualRangeAmount(): array
+    public function getActualRangeValue(): array
     {
-        $lastAmount = 0;
-        return collect($this->proportions)->map(function ($proportion, $index) use (&$lastAmount) {
+        $lastValue = 0;
+        return collect($this->proportions)->map(function ($proportion, $index) use (&$lastValue) {
             if ($index === 0) {
-                $amount = $lastAmount = floor($this->min + $this->diffTotal * $proportion);
-                return [$this->min, $amount];
+                $value = $lastValue = floor($this->min + $this->diffTotal * $proportion);
+                return [$this->min, $value];
             }
 
-            $currentAmount = floor($lastAmount + ($this->diffTotal * $proportion));
-            $range = [$lastAmount + 1, $currentAmount];
-            $lastAmount = $currentAmount;
+            $currentValue = floor($lastValue + ($this->diffTotal * $proportion));
+            $range = [$lastValue + 1, $currentValue];
+            $lastValue = $currentValue;
             return $range;
         })
-            ->push([$lastAmount + 1, $this->max])
+            ->push([$lastValue + 1, $this->max])
             ->toArray();
     }
 
@@ -152,7 +152,7 @@ class ProbabilityRandom
      * @return mixed
      * @throws \Exception
      */
-    public function getProbabilityRangeIndex(): int
+    protected function getProbabilityRangeIndex(): int
     {
         $randProbability = random_int(1, 100);
 
@@ -169,14 +169,14 @@ class ProbabilityRandom
      */
     public function getExpectValue(): float
     {
-        $actualRangeAmount = $this->getActualRangeAmount();
+        $actualRangeValue = $this->getActualRangeValue();
 
         if (($this->useSafeRange && !$this->isSafeRange()) || empty($this->proportions)) {
             return ($this->min + $this->max) / 2;
         }
 
-        return collect($this->probabilities)->map(function ($probability, $index) use ($actualRangeAmount) {
-            [$min, $max] = $actualRangeAmount[$index];
+        return collect($this->probabilities)->map(function ($probability, $index) use ($actualRangeValue) {
+            [$min, $max] = $actualRangeValue[$index];
             return ($min + $max) / 2 * $probability;
         })->sum();
     }
@@ -224,7 +224,7 @@ class ProbabilityRandom
      */
     public function isSafeRange(): bool
     {
-        return collect($this->getActualRangeAmount())->filter(function ($range) {
+        return collect($this->getActualRangeValue())->filter(function ($range) {
             return $range[0] > $range[1];
         })->isEmpty();
     }
