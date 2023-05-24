@@ -1,0 +1,22 @@
+{
+    "name": "jerry58321/probability-random",
+    "description": "This is a random number generator that controls the range and probability interval.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Jerry58321\\ProbabilityRandom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jerry58321"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "illuminate/collections": "^8.83"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+}
