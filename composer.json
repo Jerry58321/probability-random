@@ -1,7 +1,9 @@
 {
     "name": "jerry58321/probability-random",
     "description": "This is a random number generator that controls the range and probability interval.",
+    "keywords": ["php", "random", "probability"],
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Jerry58321\\ProbabilityRandom\\": "src/"
@@ -14,7 +16,8 @@
     ],
     "require": {
         "php": ">=7.3",
-        "illuminate/collections": ">=8.0"
+        "illuminate/collections": "^8.0|^9.0",
+        "illuminate/contracts": "^8.0|^9.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6"
